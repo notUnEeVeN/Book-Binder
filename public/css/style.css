@@ -1,23 +1,26 @@
 header, .project:not(:last-child) {
   border-bottom: 1px solid #ccc;
 }
-
+/* color pallet: Hex Codes: steel teal: #588b8b // cedar chest/white: : #ffffff // pink: #ffd5c2 // orange: #f28f3b // red: #c8553d */
 * {
-  background-color: #d9ead3;
+  background-color: #ffffff;
+  color: #c8553d;
+  font-family: cursive;
 }
 
 .header {
-  background-color: #231010;
+  background-color: #f28f3b;
+  color: #c8553d;
 }
 
 h1, h1 a {
-  background-color: #231010;
-  color:#d9ead3;
+  background-color: #f28f3b;
+  color:#c8553d;
 }
 
 nav, nav a {
-  background-color: #231010;
-  color: #d9ead3;
+  background-color: #f28f3b;
+  color: #c8553d;
 }
 
 .no-button {
@@ -37,6 +40,8 @@ nav, nav a {
 
 button:hover {
   cursor: pointer;
+  background-color: #588b8b;
+  color: #ffffff;
 }
 
 /*styling for the user prompt to sign in*/
@@ -51,7 +56,7 @@ button:hover {
   padding: 5px 15px;
   border: none;
   border-radius: 5px;
-  background-color: #007BFF;
-  color: white;
+  background-color: #588b8b;
+  color: ffffff;
   cursor: pointer;
 }
