@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-auto">
+    <h2>Welcome, {{name}}!</h2>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>New Post:</h3>
+
+    <form class="form new-project-form">
+      <div class="form-group">
+        <label for="project-name">Post Title:</label>
+        <input class="form-input" type="text" id="project-name" name="project-name" />
+      </div>
+      <div class="form-group">
+        <label for="project-desc">Description:</label>
+        <textarea class="form-input" id="project-desc" name="project-desc"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+
+  {{#if projects.length}}
+  <div class="col-md-6">
+    <h3>Your Posts:</h3>
+
+    {{#each projects as |project|}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a style="color: #231010;" href="/project/{{project.id}}">{{project.name}}</a></h4>
+        
+        <!-- Edit form hidden by default -->
+        <form class="edit-project-form" data-id="{{project.id}}" style="display:none;">
+          <input class="form-input" type="text" value="{{project.name}}" name="project-name-edit" />
+          <textarea class="form-input" name="project-desc-edit">{{project.description}}</textarea>
+          <button type="submit">Save</button>
+        </form>
+      </div>
+      <div class="col-md-4 text-right">
+        <button class="btn btn-sm btn-warning btn-edit" data-id="{{project.id}}">EDIT</button>
+        <button class="btn btn-sm btn-danger" data-id="{{project.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+</div>
+<script src="./js/profile.js"></script>

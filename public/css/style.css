@@ -1,0 +1,57 @@
+header, .project:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+* {
+  background-color: #d9ead3;
+}
+
+.header {
+  background-color: #231010;
+}
+
+h1, h1 a {
+  background-color: #231010;
+  color:#d9ead3;
+}
+
+nav, nav a {
+  background-color: #231010;
+  color: #d9ead3;
+}
+
+.no-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #1b89bc;
+  text-decoration: none;
+  font-size: 100%;
+}
+
+.no-button:hover {
+  color: #065b83;
+  text-decoration: underline;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+/*styling for the user prompt to sign in*/
+
+#loginPromptModal {
+  /* existing styles */
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+#loginPromptModal button {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+}

@@ -1,0 +1,19 @@
+<div style="border: 2px solid black; padding: 15px; width: 80%; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="margin: 0;">{{name}}</h2>
+        <p style="margin: 0; font-size: 14px;">Created by {{user.name}} on {{format_date date_created}}</p>
+    </div>
+    <div class="text-left" style="padding-top: 15px;">
+        <p>{{description}}</p>
+    </div>
+    <div style="display: flex; justify-content: flex-end; padding-top: 10px;">
+        <button id="commentBtn" style="background-color: #000; color: #FFF; border: none; padding: 8px 12px; cursor: pointer; transition: background-color 0.3s;">Comment</button>
+    </div>
+</div>
+<form id="commentForm" style="display: none;">
+    <textarea id="commentText"></textarea>
+    <button id="submitComment">Submit</button>
+</form>
+
+
+<script src="/js/project.js"></script>

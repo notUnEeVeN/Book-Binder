@@ -1,0 +1,13 @@
+{{#each projects as |project| }}
+<div style="border: 2px solid black; padding: 15px; width: 80%; margin: 15px auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="margin: 0;">
+            <a style="color: #231010;" href="/project/{{project.id}}">{{project.name}}</a>
+        </h2>
+        <p style="margin: 0; font-size: 14px;">Created by {{project.user.name}} on {{format_date project.date_created}}</p>
+    </div>
+    <div class="text-left" style="padding-top: 15px;">
+        <p>{{project.description}}</p>
+    </div>
+</div>
+{{/each}}

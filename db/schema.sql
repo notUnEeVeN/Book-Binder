@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS book_binder;
+CREATE DATABASE book_binder;
+g
