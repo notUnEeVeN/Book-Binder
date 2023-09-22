@@ -1,4 +1,5 @@
-header, .project:not(:last-child) {
+header,
+.project:not(:last-child) {
   border-bottom: 1px solid #ccc;
 }
 
@@ -10,12 +11,14 @@ header, .project:not(:last-child) {
   background-color: #231010;
 }
 
-h1, h1 a {
+h1,
+h1 a {
   background-color: #231010;
-  color:#d9ead3;
+  color: #d9ead3;
 }
 
-nav, nav a {
+nav,
+nav a {
   background-color: #231010;
   color: #d9ead3;
 }
@@ -31,7 +34,7 @@ nav, nav a {
 }
 
 .no-button:hover {
-  color: #065b83;
+  color: #a2e1fe;
   text-decoration: underline;
 }
 
@@ -39,10 +42,20 @@ button:hover {
   cursor: pointer;
 }
 
+/* CSS code for landing-page */
+.landing-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  padding: 20px; /* Add padding to give space around the content */
+  text-align: center; /* Center text within the section */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
 /*styling for the user prompt to sign in*/
 
 #loginPromptModal {
-  /* existing styles */
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
@@ -51,7 +64,7 @@ button:hover {
   padding: 5px 15px;
   border: none;
   border-radius: 5px;
-  background-color: #007BFF;
+  background-color: #007bff;
   color: white;
   cursor: pointer;
 }

@@ -1,51 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech Blog</title>
-  <link rel="stylesheet" href="/css/jass.css">
-  <link rel="stylesheet" href="/css/style.css">
-</head>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Book-Binder</title>
+    <link rel='stylesheet' href='/css/jass.css' />
+    <link rel='stylesheet' href='/css/style.css' />
+  </head>
 
-<body>
-  <div class="flex-column justify-space-around">
-    <header class="display-flex justify-space-between align-center p-2 header">
-      <h1>
-        <a style="color: #d9ead3;" href="/">The Tech Blog</a>
-      </h1>
-      <nav>
-        <a style="color: #d9ead3;" href="/">Home</a> | 
-        <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-        <a style="color: #d9ead3;" href="/profile">Dashboard</a> |
-        <button style="color: #d9ead3;" class="no-button" id="logout">Logout</button>
-        {{else}}
-        <a style="color: #d9ead3;" href="/login">Login</a>
-        {{/if}}
-      </nav>
-    </header>
-    <main class="container container-fluid mt-5">
-      <!-- Render the sub layout -->
-      {{{ body }}}
-    </main>
-    <div id="loginPromptModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; padding: 20px; background-color: white; border: 1px solid gray;">
-    <p>You should log in to be able to create, delete, or update posts!</p>
-    <button onclick="closeLoginPrompt()">Close</button>
+  <body>
+    <div class='flex-column justify-space-around'>
+      <header
+        class='display-flex justify-space-between align-center p-2 header'
+      >
+        <h1>
+          <a style='color: #d9ead3;' href='/'>The Hoard of Books</a>
+        </h1>
+        <nav>
+          <a style='color: #d9ead3;' href='/'>Home</a>
+          |
+          <!-- Conditionally render login or logout links -->
+          {{#if logged_in}}
+            <a style='color: #d9ead3;' href='/profile'>Dashboard</a>
+            |
+            <button
+              style='color: #d9ead3;'
+              class='no-button'
+              id='logout'
+            >Logout</button>
+          {{else}}
+            <a style='color: #d9ead3;' href='/login'>Login</a>
+          {{/if}}
+        </nav>
+      </header>
+
+      <!-- Always render the main content -->
+      <main class='container container-fluid mt-5'>
+        <!-- Render the sub layout -->
+        {{{body}}}
+      </main>
     </div>
+  </body>
 
-    <footer>
-      
-    </footer>
-  </div>
-
-  <!-- Render script for logged in users only -->
   {{#if logged_in}}
-  <script src="/js/logout.js"></script>
+    <script src='/js/logout.js'></script>
   {{/if}}
-
-  <script src="/js/userprompt.js"></script>
-</body>
 
 </html>
