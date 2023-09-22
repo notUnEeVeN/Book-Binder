@@ -18,11 +18,22 @@
   </main>
 {{/unless}}
 
-{{#if logged_in}}
-  {{#each userPosts}}
-    <div class='post'>
-      <h2>{{name}}</h2>
-      <p>{{description}}</p>
-    </div>
-  {{/each}}
-{{/if}}
+<div class="posts-container" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+    {{#if logged_in}}
+        {{#each userPosts}}
+            <div class="post" style="flex-basis: calc(18% - 15px); box-sizing: border-box;"> <!-- Adjusted flex-basis to reduce outer container width -->
+                <div style="border: 2px solid black; padding: 15px; display: flex; flex-direction: column; align-items: center; width: 100%;">
+                    
+                    <!-- Adjusted Book Cover Container size -->
+                    <div style="width: 120px; height: 180px; border: 1px solid gray; background-image: url('{{coverImageUrl}}'); background-size: cover; background-position: center; margin-bottom: 15px;"></div>
+                    
+                    <div>
+                        <h2 style="text-align: center; margin: 0;">
+                            <a style="color: #231010;" href="/project/{{id}}">{{name}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    {{/if}}
+</div>

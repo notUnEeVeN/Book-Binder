@@ -68,3 +68,24 @@ button:hover {
   color: white;
   cursor: pointer;
 }
+
+.posts-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Create 5 columns of equal width */
+  gap: 20px; /* Space between each post */
+}
+
+.post h2, 
+.post p {
+  margin: 0;
+  text-align: center;
+}
+
+.post a {
+  color: #231010;
+  font-size: 18px; /* Adjust size as needed */
+}
+
+.post .text-left {
+  padding-top: 15px;
+}
