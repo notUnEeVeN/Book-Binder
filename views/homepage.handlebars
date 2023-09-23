@@ -21,7 +21,7 @@
 <div class="posts-container" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
     {{#if logged_in}}
         {{#each userPosts}}
-            <div class="post" style="flex-basis: calc(18% - 15px); box-sizing: border-box;"> <!-- Adjusted flex-basis to reduce outer container width -->
+            <div class="post" data-book-name="{{name}}" style="flex-basis: calc(18% - 15px); box-sizing: border-box;"> <!-- Adjusted flex-basis to reduce outer container width -->
                 <div style="border: 2px solid black; padding: 15px; display: flex; flex-direction: column; align-items: center; width: 100%;">
                     
                     <!-- Adjusted Book Cover Container size -->
@@ -37,3 +37,5 @@
         {{/each}}
     {{/if}}
 </div>
+
+<script src="./js/test.js"></script>
