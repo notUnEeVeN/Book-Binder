@@ -31,6 +31,9 @@ Project.init(
         key: 'id',
       },
     },
+    coverImageUrl: {
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,

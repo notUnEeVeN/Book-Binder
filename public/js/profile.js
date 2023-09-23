@@ -3,14 +3,18 @@ const newFormHandler = async (event) => {
 
   const name = document.querySelector('#project-name').value.trim();
   const description = document.querySelector('#project-desc').value.trim();
+  const fileInput = document.querySelector('#image-file').files[0]; // Get the selected file
 
-  if (name && description) {
-    const response = await fetch(`/api/projects`, {
+  if (name && description && fileInput) {
+    // Create a FormData object to send a multipart/form-data request
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('image', fileInput); // 'image' should match the 'name' attribute in profile.handlebars form
+
+    const response = await fetch(`/api/projects/upload`, {
       method: 'POST',
-      body: JSON.stringify({ name, description }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      body: formData, // Use formData instead of JSON.stringify
     });
 
     if (response.ok) {
@@ -18,6 +22,8 @@ const newFormHandler = async (event) => {
     } else {
       alert('Failed to create project');
     }
+  } else {
+    alert('Please fill out all fields and select an image file.');
   }
 };
 
@@ -37,13 +43,17 @@ const delButtonHandler = async (event) => {
   }
 };
 
-document.querySelector('.new-project-form').addEventListener('submit', newFormHandler);
+document
+  .querySelector('.new-project-form')
+  .addEventListener('submit', newFormHandler);
 
 // Toggle edit form
-document.querySelectorAll('.btn-edit').forEach(button => {
+document.querySelectorAll('.btn-edit').forEach((button) => {
   button.addEventListener('click', (event) => {
     const projectId = event.target.getAttribute('data-id');
-    const editForm = document.querySelector(`.edit-project-form[data-id="${projectId}"]`);
+    const editForm = document.querySelector(
+      `.edit-project-form[data-id="${projectId}"]`
+    );
     if (editForm) {
       editForm.style.display = editForm.style.display === 'none' ? '' : 'none';
     }
@@ -51,18 +61,22 @@ document.querySelectorAll('.btn-edit').forEach(button => {
 });
 
 // Handle edit form submission
-document.querySelectorAll('.edit-project-form').forEach(form => {
+document.querySelectorAll('.edit-project-form').forEach((form) => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const projectId = form.getAttribute('data-id');
-    const name = form.querySelector('input[name="project-name-edit"]').value.trim();
-    const description = form.querySelector('textarea[name="project-desc-edit"]').value.trim();
+    const name = form
+      .querySelector('input[name="project-name-edit"]')
+      .value.trim();
+    const description = form
+      .querySelector('textarea[name="project-desc-edit"]')
+      .value.trim();
 
     if (name && description) {
       const response = await fetch(`/api/projects/${projectId}`, {
-        method: 'PUT', 
+        method: 'PUT',
         body: JSON.stringify({ name, description }),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       });
 
       if (response.ok) {
