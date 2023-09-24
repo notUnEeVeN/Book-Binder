@@ -1,10 +1,10 @@
 <!-- Conditionally render landing page content if not logged in -->
 {{#unless logged_in}}
-  <main>
+ 
     <!-- Add a banner image within the landing page section -->
     <section class='landing-page'>
       <!-- Banner image goes here -->
-      <img src='/images/your-banner-image.jpg' alt='Banner Image' />
+      {{!-- <img src='/images/your-banner-image.jpg' alt='Banner Image' /> --}}
 
       <div class='landing-page-content'>
         <h2>Ready to embark on a literary adventure? </h2>
@@ -15,7 +15,8 @@
         <a href='/login' id='login-link'>Start Here!</a>
       </div>
     </section>
-  </main>
+    <footer>Footer is here!</footer>
+  
 {{/unless}}
 
 {{#if logged_in}}
