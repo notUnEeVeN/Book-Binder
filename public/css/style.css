@@ -56,12 +56,18 @@ button:hover {
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
  
 }
-
+/* landing page and login page background */
 .leaves-bg {
   height: 90vh;
   background-image: url("/images/leaves_and_book_edited.png");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.leavesBorder-bg {
+  background-image: url("/images/leaves_boarder_edited.png");
+  background-size: cover;
+  height: 90vh;
 }
 /*styling for the user prompt to sign in*/
 

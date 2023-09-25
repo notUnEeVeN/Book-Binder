@@ -1,3 +1,4 @@
+<main id="page4" class='container container-fluid leaves-bg'>
 <div class="row">
   <div class="col-auto">
     <h2>Welcome, {{name}}!</h2>
@@ -30,7 +31,7 @@
     {{#each projects as |project|}}
     <div class="row mb-2">
       <div class="col-md-8">
-        <h4><a style="color: #231010;" href="/project/{{project.id}}">{{project.name}}</a></h4>
+        <h4><a style="color: #f28f3b ;" href="/project/{{project.id}}">{{project.name}}</a></h4>
         
         <!-- Edit form hidden by default -->
         <form class="edit-project-form" data-id="{{project.id}}" style="display:none;">
@@ -50,3 +51,4 @@
 
 </div>
 <script src="./js/profile.js"></script>
+</main>

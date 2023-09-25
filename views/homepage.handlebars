@@ -1,4 +1,5 @@
 <!-- Conditionally render landing page content if not logged in -->
+<main id="page2"class='container container-fluid leaves-bg'>
 {{#unless logged_in}}
  
     <!-- Add a banner image within the landing page section -->
@@ -15,7 +16,7 @@
         <a href='/login' id='login-link'>Start Here!</a>
       </div>
     </section>
-    <footer>Footer is here!</footer>
+    
   
 {{/unless}}
 
@@ -27,3 +28,4 @@
     </div>
   {{/each}}
 {{/if}}
+</main>
