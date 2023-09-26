@@ -9,12 +9,14 @@ const withAuth = require('../../utils/auth');
 // Define the storage location and file naming strategy for Multer
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
+    // Set the directory where uploaded images will be stored
     callback(null, 'public/uploads');
   },
   filename: (req, file, callback) => {
+    // Extract the file extension from the original file name
     const extension = path.extname(file.originalname);
 
-    // Check if the file with the same name exists in the directory
+    // Check if a file with the same name already exists in the directory
     const filePath = path.join('public/uploads', file.originalname);
     if (fs.existsSync(filePath)) {
       // File with the same name exists, generate a unique filename
@@ -46,6 +48,77 @@ router.post('/upload', withAuth, upload.single('image'), async (req, res) => {
     res.status(200).json(newProject);
   } catch (err) {
     res.status(400).json(err);
+  }
+});
+
+// Endpoint to update a specific project by ID (with image)
+router.put('/:id', withAuth, upload.single('image'), async (req, res) => {
+  try {
+    // Check if an image file was uploaded
+    if (req.file) {
+      // Access the uploaded file's filename using req.file
+      const { filename } = req.file;
+
+      // Fetch the project data from the database
+      const projectData = await Project.findOne({
+        where: {
+          id: req.params.id,
+          user_id: req.session.user_id,
+        },
+      });
+
+      if (!projectData) {
+        res.status(404).json({ message: 'No project found with this id!' });
+        return;
+      }
+
+      // Extract the old filename from the coverImageUrl
+      const oldFilename = projectData.coverImageUrl.split('/').pop();
+
+      // Delete the old image file from the server's filesystem
+      const oldImagePath = path.join(
+        __dirname,
+        '..',
+        '..',
+        'public',
+        'uploads',
+        oldFilename
+      );
+
+      // Check if the old file exists before attempting to delete it
+      if (fs.existsSync(oldImagePath)) {
+        fs.unlinkSync(oldImagePath);
+      }
+
+      // Update the project data with the new image URL
+      projectData.coverImageUrl = `uploads/${filename}`;
+      await projectData.save(); // Save the updated project data
+
+      res.status(200).json(projectData);
+    } else {
+      // If no new image was uploaded, update only the project details
+      const projectData = await Project.update(
+        {
+          name: req.body.name,
+          description: req.body.description,
+        },
+        {
+          where: {
+            id: req.params.id,
+            user_id: req.session.user_id,
+          },
+        }
+      );
+
+      if (!projectData) {
+        res.status(404).json({ message: 'No project found with this id!' });
+        return;
+      }
+
+      res.status(200).json(projectData);
+    }
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
@@ -90,33 +163,6 @@ router.delete('/:id', withAuth, async (req, res) => {
         user_id: req.session.user_id,
       },
     });
-
-    res.status(200).json(projectData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// Endpoint to update a specific project by ID
-router.put('/:id', withAuth, async (req, res) => {
-  try {
-    const projectData = await Project.update(
-      {
-        name: req.body.name,
-        description: req.body.description,
-      },
-      {
-        where: {
-          id: req.params.id,
-          user_id: req.session.user_id,
-        },
-      }
-    );
-
-    if (!projectData) {
-      res.status(404).json({ message: 'No project found with this id!' });
-      return;
-    }
 
     res.status(200).json(projectData);
   } catch (err) {

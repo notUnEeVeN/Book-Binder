@@ -69,6 +69,18 @@
                 class='form-input'
                 name='project-desc-edit'
               >{{project.description}}</textarea>
+
+              <!-- Add an input field for updating the project image -->
+              <div class='form-group'>
+                <label for='project-image-edit-{{project.id}}'>Update Image:</label>
+                <input
+                  type='file'
+                  name='project-image-edit'
+                  id='project-image-edit-{{project.id}}'
+                  accept='image/*'
+                />
+              </div>
+
               <button type='submit'>Save</button>
             </form>
           </div>
