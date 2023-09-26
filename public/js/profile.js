@@ -3,24 +3,37 @@ const newFormHandler = async (event) => {
 
   const name = document.querySelector('#project-name').value.trim();
   const description = document.querySelector('#project-desc').value.trim();
-  const fileInput = document.querySelector('#image-file');
+  const fileInput = document.querySelector('#image').files[0]; // Use .files[0] to access the selected file
 
-  if (name && description) {
-    const response = await fetch(`/api/projects/upload`, {
+  console.log('Name:', name);
+  console.log('Description:', description);
+  console.log('File Input:', fileInput);
+
+  if (name && description && fileInput) {
+    const formData = new FormData(); // Create a FormData object to handle file uploads
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('image', fileInput); // Append the file input with the name 'image'
+
+    const response = await fetch(`/api/projects/uploads`, {
       method: 'POST',
-      body: JSON.stringify({ name, description, fileInput }),
-      // headers: {
-      //   'Content-Type': 'application/json',
-      // },
+      body: formData, // Send the FormData object
     });
 
     if (response.ok) {
-      document.location.replace('/profile');
+      // Redirect to the profile page after a successful post creation
+      console.log('redirecting to profile page');
+      window.location.replace('/profile');
     } else {
       alert('Failed to create project');
     }
   }
 };
+
+// Attach the event listener to the form
+document
+  .querySelector('#project-form') // Select by id, not class
+  .addEventListener('submit', newFormHandler);
 
 const delButtonHandler = async (event) => {
   if (event.target.hasAttribute('data-id')) {
@@ -37,10 +50,6 @@ const delButtonHandler = async (event) => {
     }
   }
 };
-
-document
-  .querySelector('.new-project-form')
-  .addEventListener('submit', newFormHandler);
 
 // Toggle edit form
 document.querySelectorAll('.btn-edit').forEach((button) => {
