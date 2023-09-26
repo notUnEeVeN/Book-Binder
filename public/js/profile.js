@@ -1,3 +1,60 @@
+const newFormHandler = async (event) => {
+  event.preventDefault();
+
+  const name = document.querySelector('#project-name').value.trim();
+  const description = document.querySelector('#project-desc').value.trim();
+  const fileInput = document.querySelector('#image-file');
+
+  if (name && description) {
+    const response = await fetch(`/api/projects/upload`, {
+      method: 'POST',
+      body: JSON.stringify({ name, description, fileInput }),
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
+    });
+
+    if (response.ok) {
+      document.location.replace('/profile');
+    } else {
+      alert('Failed to create project');
+    }
+  }
+};
+
+const delButtonHandler = async (event) => {
+  if (event.target.hasAttribute('data-id')) {
+    const id = event.target.getAttribute('data-id');
+
+    const response = await fetch(`/api/projects/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      document.location.replace('/profile');
+    } else {
+      alert('Failed to delete project');
+    }
+  }
+};
+
+document
+  .querySelector('.new-project-form')
+  .addEventListener('submit', newFormHandler);
+
+// Toggle edit form
+document.querySelectorAll('.btn-edit').forEach((button) => {
+  button.addEventListener('click', (event) => {
+    const projectId = event.target.getAttribute('data-id');
+    const editForm = document.querySelector(
+      `.edit-project-form[data-id="${projectId}"]`
+    );
+    if (editForm) {
+      editForm.style.display = editForm.style.display === 'none' ? '' : 'none';
+    }
+  });
+});
+
 // Handle edit form submission
 document.querySelectorAll('.edit-project-form').forEach((form) => {
   form.addEventListener('submit', async (event) => {
@@ -35,4 +92,11 @@ document.querySelectorAll('.edit-project-form').forEach((form) => {
       alert('Please fill out both fields');
     }
   });
+});
+
+// Use event delegation for dynamically generated elements
+document.body.addEventListener('click', (event) => {
+  if (event.target.matches('.btn-danger')) {
+    delButtonHandler(event);
+  }
 });
