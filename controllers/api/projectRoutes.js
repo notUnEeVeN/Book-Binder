@@ -32,19 +32,21 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Endpoint to create a new project with image upload
-router.post('/upload', withAuth, upload.single('image'), async (req, res) => {
+router.post('/uploads', withAuth, upload.single('image'), async (req, res) => {
   try {
     // Access the uploaded file's filename using req.file
     const { filename } = req.file;
     console.log(filename);
     const newProject = await Project.create({
-      ...req.body,
+      name: req.body.name,
+      description: req.body.description,
       user_id: req.session.user_id,
       coverImageUrl: `uploads/${filename}`, // Set the cover image URL
     });
 
     res.status(200).json(newProject);
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -145,7 +147,7 @@ router.put('/:id', withAuth, upload.single('image'), async (req, res) => {
       // If no new image was uploaded, update only the project details
       const projectData = await Project.update(
         {
-          name: req.body.name,
+          name: req.body.name, // Updating the project name
           description: req.body.description,
         },
         {
