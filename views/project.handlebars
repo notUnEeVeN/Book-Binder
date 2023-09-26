@@ -1,9 +1,22 @@
-<div style="border: 2px solid black; padding: 15px; width: 80%; margin: 0 auto;">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2 style="margin: 0;">{{name}}</h2>
-        <p style="margin: 0; font-size: 14px;">Added on {{format_date date_created}}</p>
-    </div>
-    <div class="text-left" style="padding-top: 15px;">
-        <p>{{description}}</p>
-    </div>
+<div
+  class='project-content'
+  style='border: 2px solid black; padding: 15px; width: 80%; margin: 0 auto;'
+>
+  <div
+    style='display: flex; justify-content: space-between; align-items: center;'
+  >
+    <!-- Display the book image -->
+    <img
+      src='/{{coverImageUrl}}'
+      alt='{{name}} Image'
+      style='max-width: 100px; max-height: 100px;'
+    />
 
+    <h2 style='margin: 0;'>{{name}}</h2>
+    <p style='margin: 0; font-size: 14px;'>Added on
+      {{format_date date_created}}</p>
+  </div>
+  <div class='text-left' style='padding-top: 15px;'>
+    <p>{{description}}</p>
+  </div>
+</div>
