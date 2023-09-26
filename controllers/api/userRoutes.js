@@ -2,7 +2,8 @@ const router = require('express').Router();
 const { User } = require('../../models');
 
 // Endpoint to register a new user and start a session
-router.post('/', async (req, res) => {
+// Update the route path to '/signup'
+router.post('/signup', async (req, res) => {
   try {
     const { email } = req.body;
     const existingEmail = await User.findOne({

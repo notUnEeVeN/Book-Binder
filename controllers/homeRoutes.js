@@ -37,6 +37,9 @@ router.get('/project/:id', async (req, res) => {
 
     const project = projectData.get({ plain: true });
 
+    // Log the project object to check if coverImageUrl is included
+    console.log(project);
+
     res.render('project', {
       ...project,
       logged_in: req.session.logged_in,
@@ -74,6 +77,16 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+router.get('/signup', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/profile'); // Redirect to the user's profile page
+    return;
+  }
+
+  res.render('signup');
 });
 
 module.exports = router;
