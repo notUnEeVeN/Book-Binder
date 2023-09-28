@@ -219,7 +219,7 @@ Thanks to everyone who worked on this project:
 
 Here are the deployment links for this project:
 
-- Deployment via [Heroku](https://example.com)
+- Deployment via [Heroku](https://desolate-shelf-74234-4428346d7a74.herokuapp.com/)
 
 - Deployment via [Github](https://notuneeven.github.io/Book-Binder/)
 
