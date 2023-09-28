@@ -1,26 +1,27 @@
-header,
-.project:not(:last-child) {
+body {
+  /* Set the background gradient for the entire page */
+  background-image: linear-gradient(
+    306deg,
+    rgba(121, 187, 40, 1) 0%,
+    rgba(6, 108, 55, 1) 100%
+  );
+}
+
+header, .project:not(:last-child) {
   border-bottom: 1px solid #ccc;
 }
 
-* {
-  background-color: #d9ead3;
-}
-
 .header {
-  background-color: #231010;
+  background-color: white; /* Change navbar color to white */
 }
 
-h1,
-h1 a {
-  background-color: #231010;
-  color: #d9ead3;
+h1, h1 a {
+  color: black;
 }
 
-nav,
-nav a {
-  background-color: #231010;
-  color: #d9ead3;
+nav, nav a {
+  background-color: white;
+  color: black; /* Make anchor links on navbar black */
 }
 
 .no-button {
@@ -42,18 +43,15 @@ button:hover {
   cursor: pointer;
 }
 
-/* CSS code for landing-page */
 .landing-page-content {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  padding: 20px; /* Add padding to give space around the content */
-  text-align: center; /* Center text within the section */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
 }
-
-/*styling for the user prompt to sign in*/
 
 #loginPromptModal {
   border-radius: 5px;
@@ -71,21 +69,37 @@ button:hover {
 
 .posts-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Create 5 columns of equal width */
-  gap: 20px; /* Space between each post */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 
-.post h2, 
-.post p {
+.post h2, .post p {
   margin: 0;
   text-align: center;
 }
 
 .post a {
   color: #231010;
-  font-size: 18px; /* Adjust size as needed */
+  font-size: 18px;
 }
 
 .post .text-left {
   padding-top: 15px;
+}
+
+.post {
+  flex-basis: calc(18% - 15px);
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 15px; /* This line will round the corners */
+}
+
+.post > div {
+  border: 2px solid black;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px; /* This line will round the corners */
 }

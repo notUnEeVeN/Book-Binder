@@ -1,22 +1,24 @@
-<div
-  class='project-content'
-  style='border: 2px solid black; padding: 15px; width: 80%; margin: 0 auto;'
->
-  <div
-    style='display: flex; justify-content: space-between; align-items: center;'
-  >
-    <!-- Display the book image -->
-    <img
+<div style="border: 2px solid black; padding: 15px; width: 80%; margin: 0 auto; background-color: white; display: flex; align-items: flex-start;">
+    
+    <!-- Book Cover on the Left -->
+    <div style="flex: 1; max-width: 40%; margin-right: 15px;"> <!-- Adjust the max-width according to your preference -->
+        <div style="width: 100%; height: 360px; border: 1px solid gray; background-size: cover; background-position: center;">
+           <img
       src='/{{coverImageUrl}}'
       alt='{{name}} Image'
-      style='max-width: 100px; max-height: 100px;'
+      style='width: 100%; height: 360px;'
     />
-
-    <h2 style='margin: 0;'>{{name}}</h2>
-    <p style='margin: 0; font-size: 14px;'>Added on
-      {{format_date date_created}}</p>
-  </div>
-  <div class='text-left' style='padding-top: 15px;'>
-    <p>{{description}}</p>
-  </div>
+        </div>
+    </div>
+    
+    <!-- Title and Description on the Right -->
+    <div style="flex: 2; display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0;">{{name}}</h2>
+            <p style="margin: 0; font-size: 14px;">Added on {{format_date date_created}}</p>
+        </div>
+        <div class="text-left" style="padding-top: 15px;">
+            <p>{{description}}</p>
+        </div>
+    </div>
 </div>
