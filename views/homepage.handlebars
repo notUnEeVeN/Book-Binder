@@ -1,6 +1,7 @@
 <!-- Conditionally render landing page content if not logged in -->
-{{#unless logged_in}}
-  <main class='leaves-bg'>
+<main class='leaves-bg'>
+  {{#unless logged_in}}
+  
     <!-- Add a banner image within the landing page section -->
     <section class='landing-page'>
       
@@ -11,10 +12,10 @@
           Connect with fellow readers, participate in lively discussions, and
           even join our book club where we dive deep into a new book every
           month.</p>
-        <a style="color:#c8553d " href='/signup' id='signup-link'>Start Here!</a>
+        <a style="color:#588b8b  " href='/signup' id='signup-link'>Start Here!</a>
       </div>
     </section>
-  </main>
+ 
 {{/unless}}
 
 <div
