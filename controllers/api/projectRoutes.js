@@ -1,111 +1,49 @@
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs'); // Import the 'fs' module for file system operations
-const { v4: uuidv4 } = require('uuid');
+// Import necessary modules and dependencies
 const router = require('express').Router();
 const { Project } = require('../../models');
 const withAuth = require('../../utils/auth');
+const cloudinary = require('../../config/cloudinaryConfig'); // Import Cloudinary configuration
 
-// Define the storage location and file naming strategy for Multer
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, 'public/uploads');
-  },
-  filename: (req, file, callback) => {
-    const extension = path.extname(file.originalname);
-
-    // Check if the file with the same name exists in the directory
-    const filePath = path.join('public/uploads', file.originalname);
-    if (fs.existsSync(filePath)) {
-      // File with the same name exists, generate a unique filename
-      const uniqueFilename = uuidv4() + '-' + extension;
-      callback(null, uniqueFilename);
-    } else {
-      // File with the same name does not exist, use the original name
-      callback(null, file.originalname);
-    }
-  },
-});
-
-// Middleware that will contain the Multer upload configuration
-// It directly assigns the Multer configuration with the 'storage' option to the 'upload' variable
-const upload = multer({ storage: storage });
+// Middleware for Cloudinary upload
+const upload = cloudinary.uploader.upload;
 
 // Endpoint to create a new project with image upload
-router.post('/uploads', withAuth, upload.single('image'), async (req, res) => {
+router.post('/uploads', withAuth, async (req, res) => {
   try {
-    // Access the uploaded file's filename using req.file
-    const { filename } = req.file;
-    console.log(filename);
+    // Access the uploaded file using Cloudinary upload middleware
+    const cloudinaryResponse = await upload(req.files.image.tempFilePath, {
+      folder: 'uploads', // Set the folder in Cloudinary where you want to store uploads
+    });
+
+    // Extract the public URL of the uploaded image from Cloudinary response
+    const coverImageUrl = cloudinaryResponse.secure_url;
+
     const newProject = await Project.create({
       name: req.body.name,
       description: req.body.description,
       user_id: req.session.user_id,
-      coverImageUrl: `uploads/${filename}`, // Set the cover image URL
+      coverImageUrl: coverImageUrl, // Set the cover image URL
     });
 
     res.status(200).json(newProject);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).json(err);
   }
 });
 
-// Endpoint to delete a specific project by ID
-router.delete('/:id', withAuth, async (req, res) => {
-  try {
-    // Fetch the project data, including the coverImageUrl, from the database
-    const projectData = await Project.findOne({
-      where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
-      },
-    });
-
-    if (!projectData) {
-      res.status(404).json({ message: 'No project found with this id!' });
-      return;
-    }
-
-    // Extract the filename from the coverImageUrl
-    const filename = projectData.coverImageUrl.split('/').pop();
-
-    // Delete the image file from the server's filesystem
-    const imagePath = path.join(
-      __dirname,
-      '..',
-      '..',
-      'public',
-      'uploads',
-      filename
-    );
-
-    // Check if the file exists before attempting to delete it
-    if (fs.existsSync(imagePath)) {
-      fs.unlinkSync(imagePath);
-    }
-
-    // Delete the project data from the database
-    await Project.destroy({
-      where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
-      },
-    });
-
-    res.status(200).json(projectData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 // Endpoint to update a specific project by ID (with image)
-router.put('/:id', withAuth, upload.single('image'), async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
   try {
     // Check if an image file was uploaded
-    if (req.file) {
-      // Access the uploaded file's filename using req.file
-      const { filename } = req.file;
+    if (req.files && req.files.image) {
+      // Access the uploaded file using Cloudinary upload middleware
+      const cloudinaryResponse = await upload(req.files.image.tempFilePath, {
+        folder: 'uploads', // Set the folder in Cloudinary where you want to store uploads
+      });
+
+      // Extract the public URL of the uploaded image from Cloudinary response
+      const coverImageUrl = cloudinaryResponse.secure_url;
 
       // Fetch the project data from the database
       const projectData = await Project.findOne({
@@ -120,37 +58,20 @@ router.put('/:id', withAuth, upload.single('image'), async (req, res) => {
         return;
       }
 
-      // Extract the old filename from the coverImageUrl
-      const oldFilename = projectData.coverImageUrl.split('/').pop();
-
-      // Delete the old image file from the server's filesystem
-      const oldImagePath = path.join(
-        __dirname,
-        '..',
-        '..',
-        'public',
-        'uploads',
-        oldFilename
-      );
-
-      // Check if the old file exists before attempting to delete it
-      if (fs.existsSync(oldImagePath)) {
-        fs.unlinkSync(oldImagePath);
-      }
-
       // Update the project data with the new image URL
-      projectData.coverImageUrl = `uploads/${filename}`;
+      projectData.coverImageUrl = coverImageUrl;
       await projectData.save(); // Save the updated project data
 
       res.status(200).json(projectData);
     } else {
       // If no new image was uploaded, update only the project details
-      const projectData = await Project.update(
+      const [_, updatedProjectData] = await Project.update(
         {
           name: req.body.name, // Updating the project name
           description: req.body.description,
         },
         {
+          returning: true,
           where: {
             id: req.params.id,
             user_id: req.session.user_id,
@@ -158,14 +79,15 @@ router.put('/:id', withAuth, upload.single('image'), async (req, res) => {
         }
       );
 
-      if (!projectData) {
+      if (!updatedProjectData || updatedProjectData.length === 0) {
         res.status(404).json({ message: 'No project found with this id!' });
         return;
       }
 
-      res.status(200).json(projectData);
+      res.status(200).json(updatedProjectData[0]);
     }
   } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 });
