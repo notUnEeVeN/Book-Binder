@@ -7,6 +7,7 @@ const helpers = require('./utils/helpers');
 
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+require('./config/cloudinaryConfig'); // Import and execute Cloudinary configuration
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -25,8 +26,8 @@ const sess = {
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
-    db: sequelize
-  })
+    db: sequelize,
+  }),
 };
 
 app.use(session(sess));
