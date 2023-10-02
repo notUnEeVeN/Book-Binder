@@ -1,14 +1,20 @@
 [
   {
-    "name": "Music Near Me",
-    "description": "A mobile app that will send you notifications whenever a concert is playing in your area."
+    "name": "Don Quixote",
+    "description": "The adventures of Alonso Quixano: a middle-aged man so obsessed with chivalric books that he decides to imitate them and become a knight-errant. So begins his journey to find a faithful squire, save damsels in distress, and fight windmills.",
+    "user_id": 1,
+    "coverImageUrl": "sample/Don-Quixote.jpg"
   },
   {
-    "name": "The Ultimate Tech Quiz",
-    "description": "A web app that will give users 10 new technical questions each day and track their progress in things like programming, cybersecurity, database architecture, and more!"
+    "name": "The Three Musketeers",
+    "description": "A young man named d'Artagnan joins the Musketeers of the Guard. In doing so, he befriends Athos, Porthos, and Aramis — the King’s most celebrated musketeers — and embarks on a journey of his own.",
+    "user_id": 2,
+    "coverImageUrl": "sample/The-Three-Musketeers.jpg"
   },
   {
-    "name": "Roll 'Em Up",
-    "description": "A game for Windows and macOS where players move a ball through a series of increasingly challenging mazes."
+    "name": "Treasure Island",
+    "description": "This story of buccaneers and buried gold launched a million tropes of treasure maps, sea chests, Black Spots, and deserted islands.",
+    "user_id": 3,
+    "coverImageUrl": "sample/Treasure-Island.jpg"
   }
 ]

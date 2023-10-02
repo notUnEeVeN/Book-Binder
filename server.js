@@ -5,7 +5,7 @@ const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 
-const sequelize = require('./config/connection');
+const sequelize = require('./config/sequelizeConfig');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 require('./config/cloudinaryConfig'); // Import and execute Cloudinary configuration
 
